@@ -99,9 +99,9 @@
     <form id="pedidoForm">
         <label for="servico">Serviço:</label>
         <select id="servico">
-            <option value="1">Seguidores do Instagram</option>
-            <option value="223">Curtidas no Instagram</option>
-            <option value="331">Visualizações no Instagram</option>
+            <option value="Seguidores do Instagram">Seguidores do Instagram</option>
+            <option value="Curtidas no Instagram">Curtidas no Instagram</option>
+            <option value="Visualizações no Instagram">Visualizações no Instagram</option>
         </select>
 
         <label for="link">Link:</label>
@@ -113,100 +113,26 @@
         <button type="button" onclick="enviarPedido()">Enviar Pedido</button>
     </form>
 
-    <h2>Checar Status do Pedido</h2>
-    <form id="statusForm">
-        <label for="orderId">ID do Pedido:</label>
-        <input type="text" id="orderId" placeholder="Insira o ID do pedido">
-        <button type="button" onclick="checarStatus()">Verificar Status</button>
-    </form>
-
     <div id="resposta"></div>
 
     <script>
-        const apiUrl = "https://borafama.com/api/v2";
-        const apiKey = "078591005eb61d97590a9311ac14359f";
-
         function enviarPedido() {
             const servico = document.getElementById('servico').value;
             const link = document.getElementById('link').value;
-            const quantidade = parseInt(document.getElementById('quantidade').value);
+            const quantidade = document.getElementById('quantidade').value;
 
-            if (isNaN(quantidade) || quantidade < 10) {
+            if (!quantidade || quantidade < 10) {
                 document.getElementById('resposta').innerText = 'Quantidade inválida. Tente novamente com um valor acima de 10.';
                 return;
             }
 
-            fetch(apiUrl, {
-                method: "POST",
-                headers: {
-                    "Content-Type": "application/json"
-                },
-                body: JSON.stringify({
-                    key: apiKey,
-                    action: "add",
-                    service: servico,
-                    link: link,
-                    quantity: quantidade
-                })
-            })
-            .then(response => response.json())
-            .then(dados => {
-                if (dados.order) {
-                    document.getElementById('resposta').innerHTML = `
-                        <p><strong>Pedido realizado com sucesso!</strong></p>
-                        <p>Link: ${link}</p>
-                        <p>Serviço: ${servico}</p>
-                        <p>Quantidade: ${quantidade}</p>
-                        <p>ID do Pedido: ${dados.order}</p>
-                    `;
-                } else {
-                    document.getElementById('resposta').innerText = `Falha ao realizar o pedido: ${dados.error || 'Erro desconhecido.'}`;
-                }
-            })
-            .catch(error => {
-                console.error("Erro ao enviar pedido:", error);
-                document.getElementById('resposta').innerText = "Ocorreu um erro ao tentar realizar o pedido.";
-            });
-        }
+            // Monta a mensagem para o WhatsApp
+            const mensagem = `Pedido de Serviço:%0A- Serviço: ${servico}%0A- Link: ${link}%0A- Quantidade: ${quantidade}`;
+            const telefone = "554198192450";
+            const url = `https://wa.me/${telefone}?text=${mensagem}`;
 
-        function checarStatus() {
-            const orderId = document.getElementById('orderId').value.trim();
-
-            if (!orderId) {
-                document.getElementById('resposta').innerText = 'Por favor, forneça o ID do pedido.';
-                return;
-            }
-
-            fetch(apiUrl, {
-                method: "POST",
-                headers: {
-                    "Content-Type": "application/json"
-                },
-                body: JSON.stringify({
-                    key: apiKey,
-                    action: "status",
-                    order: orderId
-                })
-            })
-            .then(response => response.json())
-            .then(dados => {
-                if (dados.status) {
-                    document.getElementById('resposta').innerHTML = `
-                        <p><strong>Status do Pedido</strong></p>
-                        <p>Status: ${dados.status}</p>
-                        <p>Restante: ${dados.remains || '0'}</p>
-                        <p>Início: ${dados.start_count || '0'}</p>
-                        <p>Link: ${dados.link || 'Indisponível'}</p>
-                        <p>Quantidade: ${dados.quantity || '0'}</p>
-                    `;
-                } else {
-                    document.getElementById('resposta').innerText = `Não foi possível obter o status: ${dados.error || 'Erro desconhecido.'}`;
-                }
-            })
-            .catch(error => {
-                console.error("Erro ao checar status:", error);
-                document.getElementById('resposta').innerText = "Ocorreu um erro ao verificar o status do pedido.";
-            });
+            // Redireciona o usuário para o WhatsApp
+            window.open(url, "_blank");
         }
     </script>
 </body>
