@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Serviços - Travas Bot</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: linear-gradient(135deg, #000000, #1f1f1f);
+            color: #eee;
+            text-align: center;
+            padding: 0;
+            margin: 0;
+        }
+        .container {
+            max-width: 600px;
+            margin: 50px auto;
+            padding: 20px;
+            background-color: #333;
+            border-radius: 15px;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.4);
+        }
+        h1 {
+            color: #8a2be2;
+            margin-bottom: 20px;
+        }
+        .category {
+            margin: 20px 0;
+        }
+        .category h2 {
+            color: #eee;
+            font-size: 1.4em;
+            margin-bottom: 10px;
+            text-align: left;
+            border-bottom: 1px solid #8a2be2;
+            padding-bottom: 5px;
+        }
+        button {
+            padding: 10px;
+            margin: 5px;
+            width: 100%;
+            background-color: #8a2be2;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: bold;
+            font-size: 1em;
+        }
+        button:hover {
+            background-color: #6a0d91;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Cases Travas Bot</h1>
+        
+        <div class="category">
+            <h2>TXT</h2>
+            <button onclick="sendMessage('Txt Crash $2,00')">Txt Crash $2,00</button>
+            <button onclick="sendMessage('Txt Normal $1,00')">Txt Normal $1,00</button>
+            <button onclick="sendMessage('ExtendedText $2,00')">ExtendedText $2,00</button>
+        </div>
+
+        <div class="category">
+            <h2>VIDEO</h2>
+            <button onclick="sendMessage('Video $1,00')">Video $1,00</button>
+        </div>
+
+        <div class="category">
+            <h2>LOC</h2>
+            <button onclick="sendMessage('Loc $2,00')">Loc $2,00</button>
+            <button onclick="sendMessage('Loc crash $5,00')">Loc crash $5,00</button>
+            <button onclick="sendMessage('Loc nome $0,50')">Loc nome $0,50</button>
+        </div>
+
+        <div class="category">
+            <h2>QUOTED</h2>
+            <button onclick="sendMessage('Quoted crash $2,00')">Quoted crash $2,00</button>
+            <button onclick="sendMessage('Quoted $0,50')">Quoted $0,50</button>
+        </div>
+
+        <div class="category">
+            <h2>CONTATO</h2>
+            <button onclick="sendMessage('Contato $1,00')">Contato $1,00</button>
+            <button onclick="sendMessage('Vcard Crash $2,20')">Vcard Crash $2,20</button>
+        </div>
+
+        <div class="category">
+            <h2>DOCUMENTO</h2>
+            <button onclick="sendMessage('Pdf Crash $2,00')">Pdf Crash $2,00</button>
+            <button onclick="sendMessage('Documento 2 $1,50')">Documento 2 $1,50</button>
+            <button onclick="sendMessage('Documento $1,00')">Documento $1,00</button>
+            <button onclick="sendMessage('Documento Crash $2,00')">Documento Crash $2,00</button>
+        </div>
+
+        <div class="category">
+            <h2>CONVITE</h2>
+            <button onclick="sendMessage('Convite Group $1,00')">Convite Group $1,00</button>
+            <button onclick="sendMessage('Convite Group Crash $2,00')">Convite Group Crash $2,00</button>
+        </div>
+
+        <div class="category">
+            <h2>CATALOGO</h2>
+            <button onclick="sendMessage('Catalogo $1,00')">Catalogo $1,00</button>
+        </div>
+
+        <div class="category">
+            <h2>CARRINHO</h2>
+            <button onclick="sendMessage('Carrinho $1,00')">Carrinho $1,00</button>
+        </div>
+
+        <div class="category">
+            <h2>PAGAMENTO</h2>
+            <button onclick="sendMessage('Payment $1,00')">Payment $1,00</button>
+            <button onclick="sendMessage('Payment 2 crash $2,00')">Payment 2 crash $2,00</button>
+        </div>
+
+        <div class="category">
+            <h2>UI</h2>
+            <button onclick="sendMessage('Ui $2,00')">Ui $2,00</button>
+        </div>
+
+        <div class="category">
+            <h2>WEBPAG</h2>
+            <button onclick="sendMessage('Webpage')">Webpage</button>
+        </div>
+
+        <div class="category">
+            <h2>LIST</h2>
+            <button onclick="sendMessage('List Crash $2,00')">List Crash $2,00</button>
+        </div>
+
+        <div class="category">
+            <h2>GROUP</h2>
+            <button onclick="sendMessage('Bug Call $1,00')">Bug Call $1,00</button>
+            <button onclick="sendMessage('Nuke group $5,00')">Nuke group $5,00</button>
+        </div>
+    </div>
+
+    <script>
+        function sendMessage(product) {
+            const phoneNumber = '554199504724'; // Seu número
+            const message = `Olá, quero comprar: ${product}`;
+            const whatsappLink = `https://wa.me/${phoneNumber}?text=${encodeURIComponent(message)}`;
+            window.open(whatsappLink, '_blank');
+        }
+    </script>
+</body>
+</html>
