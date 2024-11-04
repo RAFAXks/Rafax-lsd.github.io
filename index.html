@@ -246,7 +246,7 @@
         // Contador de visitas
         async function getVisitCount() {
             try {
-                const response = await fetch('https://api.countapi.xyz/hit/lsd-storage.netlify.app/visits'); // Substitua 'your_namespace' por um namespace único
+                const response = await fetch('https://api.countapi.xyz/hit/https://lsd-storage.netlify.app/visits'); // Substitua 'your_namespace' por um namespace único
                 const data = await response.json();
                 document.getElementById('visit-counter').textContent = `Visitas: ${data.value}`;
             } catch (error) {
