@@ -36,7 +36,7 @@
         }
 
         h1, h2 {
-            color: #8a2be; /* Roxo claro */
+            color: #d1b3ff; /* Roxo claro */
             text-align: center;
             margin-bottom: 20px;
         }
@@ -62,7 +62,7 @@
         }
 
         input[type="text"]:focus, input[type="number"]:focus, select:focus {
-            border-color: #8a2be; /* Roxo */
+            border-color: #a67cdb; /* Roxo */
             outline: none;
             background-color: #4e4e4e; /* Fundo mais claro ao focar */
         }
@@ -94,10 +94,7 @@
     </style>
 </head>
 <body>
- <audio id="background-music" src="./fotos/rafax.mp3" autoplay loop ></audio>
-    <script>
-        document.getElementById("background-music")
-    </script>
+
     <h1>Enviar Pedido de Serviço</h1>
     <form id="pedidoForm">
         <label for="servico">Serviço:</label>
@@ -130,9 +127,9 @@
             }
 
             // Monta a mensagem para o WhatsApp
-            const mensagem = Pedido de Serviço:%0A- Serviço: ${servico}%0A- Link: ${link}%0A- Quantidade: ${quantidade};
+            const mensagem = `Pedido de Serviço:%0A- Serviço: ${servico}%0A- Link: ${link}%0A- Quantidade: ${quantidade}`;
             const telefone = "554198192450";
-            const url = https://wa.me/${telefone}?text=${mensagem};
+            const url = `https://wa.me/${telefone}?text=${mensagem}`;
 
             // Redireciona o usuário para o WhatsApp
             window.open(url, "_blank");
