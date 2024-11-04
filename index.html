@@ -99,6 +99,7 @@
             background-color: #6a0d91;
             transform: scale(1.05);
         }
+        /* Menu lateral */
         .menu-lateral {
             position: fixed;
             top: 50%;
@@ -119,6 +120,7 @@
         .menu-lateral a:hover {
             color: #a67cdb;
         }
+        /* Estilo do IP */
         .ip-card {
             background-color: #333;
             border-radius: 10px;
@@ -138,40 +140,34 @@
             font-size: 1.5em;
             color: #fff;
         }
-
-        /* Estilos responsivos para dispositivos móveis */
-        @media (max-width: 768px) {
-            h1 {
-                font-size: 1.8em;
-            }
-            .service {
-                width: 90%;
-                margin: 10px auto;
-            }
-            .ip-card {
-                width: 90%;
-            }
-            .contact-info {
-                flex-direction: column;
-            }
-            header {
-                flex-direction: column;
-                align-items: center;
-            }
-            .menu-lateral {
-                padding: 10px;
-                font-size: 0.9em;
-            }
+        /* Estilo do contador de visitas */
+        .visit-counter {
+            display: inline-block;
+            background-color: #8a2be2;
+            color: #fff;
+            padding: 15px 25px;
+            border-radius: 8px;
+            font-weight: 700;
+            text-decoration: none;
+            font-size: 1.1em;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.4);
+            transition: transform 0.3s, background-color 0.3s;
+            margin-top: 20px;
+        }
+        .visit-counter:hover {
+            background-color: #6a0d91;
+            transform: scale(1.05);
         }
     </style>
 </head>
 <body>
 
     <!-- Música de fundo -->
-   <audio id="background-music" src="./audio/rafax.mp3" autoplay loop muted></audio>
-<script>
-    document.getElementById("background-music").muted = false;
-</script>
+    <audio id="background-music" src="./fotos/rafax.mp3" autoplay loop ></audio>
+    <script>
+        document.getElementById("background-music")
+    </script>
+    
     <!-- Menu lateral -->
     <div class="menu-lateral">
         <a href="#">Developers</a>
@@ -198,11 +194,6 @@
     <!-- Container principal -->
     <div class="container">
         <h1 onclick="redirecionarSecreto()">LSD STORAGE - SERVIÇOS</h1>
-
-        <!-- Contador de visitas -->
-        <div class="visit-counter" style="margin: 20px; font-size: 1.5em; color: #ffffff;">
-            <p id="visit-counter">Visitas: Carregando...</p>
-        </div>
 
         <!-- Serviços existentes -->
         <div class="service">
@@ -233,30 +224,35 @@
         <p id="ip">Carregando...</p>
     </div>
 
+    <!-- Contador de Visitas -->
+    <div class="visit-counter" id="visit-counter">
+        Carregando visitas...
+    </div>
+
     <script>
-        // Função para redirecionamento secreto
-        function redirecionarSecreto() {
-            window.location.href = "pagina_secreta.html";
+// Função para exibir o IP do usuário
+        async function getIP() {
+            try {
+                const response = await fetch('https://api.ipify.org?format=json');
+                const data = await response.json();
+                document.getElementById('ip').textContent = data.ip;
+            } catch (error) {
+                console.error('Erro ao buscar o IP:', error);
+                document.getElementById('ip').textContent = 'Erro ao carregar IP';
+            }
         }
+        getIP();
 
-        // Função para exibir o IP do usuário
-async function getIP() {
-    try {
-        const response = await fetch('https://api.ipify.org?format=json');
-        const data = await response.json();
-        document.getElementById('ip').textContent = data.ip;
-    } catch (error) {
-        console.error('Erro ao buscar o IP:', error);
-        document.getElementById('ip').textContent = 'Erro ao carregar IP';
-    }
-}
-getIP();
-
-// Função para contar visitas (simples contador local)
-function updateVisitCounter() {
-    const visitCount = localStorage.getItem('visitCount');
-    const updatedCount = visitCount ? parseInt(visitCount) + 1 : 1;
-    localStorage.setItem('visitCount', updatedCount);
-    document.getElementById('visit-counter').textContent = `Visitas: ${updatedCount}`;
-}
-updateVisitCounter();
+        // Contador de visitas
+        async function getVisitCount() {
+            try {
+                const response = await fetch('https://api.countapi.xyz/hit/lsd-storage/visits'); // Substitua 'your_namespace' por um namespace único
+                const data = await response.json();
+                document.getElementById('visit-counter').textContent = `Visitas: ${data.value}`;
+            } catch (error) {
+                console.error('Erro ao buscar o contador de visitas:', error);
+                document.getElementById('visit-counter').textContent = 'Erro ao carregar visitas';
+            }
+        }
+        getVisitCount();
+        </script>
