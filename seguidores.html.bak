@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pedidos de Serviços</title>
+    <style>
+        /* Reset básico */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: Arial, sans-serif;
+        }
+
+        /* Estilo do corpo */
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            background: #1a1a1a; /* Fundo preto */
+            color: #ddd; /* Texto claro */
+            padding: 20px;
+        }
+
+        /* Estilo do formulário principal */
+        form {
+            background: #2e2e2e; /* Fundo cinza escuro */
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            max-width: 400px;
+            width: 100%;
+            margin-bottom: 20px;
+        }
+
+        h1, h2 {
+            color: #d1b3ff; /* Roxo claro */
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: bold;
+            color: #d1b3ff; /* Roxo claro */
+        }
+
+        /* Estilo dos campos de entrada */
+        input[type="text"], input[type="number"], select {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 15px;
+            border: 1px solid #444;
+            border-radius: 5px;
+            font-size: 16px;
+            background-color: #3e3e3e; /* Fundo cinza escuro */
+            color: #ddd;
+            transition: border-color 0.3s ease;
+        }
+
+        input[type="text"]:focus, input[type="number"]:focus, select:focus {
+            border-color: #a67cdb; /* Roxo */
+            outline: none;
+            background-color: #4e4e4e; /* Fundo mais claro ao focar */
+        }
+
+        /* Estilo do botão */
+        button {
+            width: 100%;
+            padding: 12px;
+            border: none;
+            border-radius: 5px;
+            background: #a67cdb; /* Roxo */
+            color: #fff;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: background 0.3s ease;
+        }
+
+        button:hover {
+            background: #864dbb; /* Roxo mais escuro */
+        }
+
+        /* Resposta do servidor */
+        #resposta {
+            text-align: center;
+            color: #d1b3ff; /* Roxo claro */
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>Enviar Pedido de Serviço</h1>
+    <form id="pedidoForm">
+        <label for="servico">Serviço:</label>
+        <select id="servico">
+            <option value="1">Seguidores do Instagram</option>
+            <option value="223">Curtidas no Instagram</option>
+            <option value="331">Visualizações no Instagram</option>
+        </select>
+
+        <label for="link">Link:</label>
+        <input type="text" id="link" placeholder="Insira o link do perfil ou postagem" required>
+
+        <label for="quantidade">Quantidade:</label>
+        <input type="number" id="quantidade" placeholder="Quantidade mínima: 10" required>
+
+        <button type="button" onclick="enviarPedido()">Enviar Pedido</button>
+    </form>
+
+    <h2>Checar Status do Pedido</h2>
+    <form id="statusForm">
+        <label for="orderId">ID do Pedido:</label>
+        <input type="text" id="orderId" placeholder="Insira o ID do pedido">
+        <button type="button" onclick="checarStatus()">Verificar Status</button>
+    </form>
+
+    <div id="resposta"></div>
+
+    <script>
+        const apiUrl = "https://borafama.com/api/v2";
+        const apiKey = "63aa864a67eb821af851158d692f7175";
+
+        function enviarPedido() {
+            const servico = document.getElementById('servico').value;
+            const link = document.getElementById('link').value;
+            const quantidade = parseInt(document.getElementById('quantidade').value);
+
+            if (isNaN(quantidade) || quantidade < 10) {
+                document.getElementById('resposta').innerText = 'Quantidade inválida. Tente novamente com um valor acima de 10.';
+                return;
+            }
+
+            fetch(apiUrl, {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify({
+                    key: apiKey,
+                    action: "add",
+                    service: servico,
+                    link: link,
+                    quantity: quantidade
+                })
+            })
+            .then(response => response.json())
+            .then(dados => {
+                if (dados.order) {
+                    document.getElementById('resposta').innerHTML = `
+                        <p><strong>Pedido realizado com sucesso!</strong></p>
+                        <p>Link: ${link}</p>
+                        <p>Serviço: ${servico}</p>
+                        <p>Quantidade: ${quantidade}</p>
+                        <p>ID do Pedido: ${dados.order}</p>
+                    `;
+                } else {
+                    document.getElementById('resposta').innerText = `Falha ao realizar o pedido: ${dados.error || 'Erro desconhecido.'}`;
+                }
+            })
+            .catch(error => {
+                console.error("Erro ao enviar pedido:", error);
+                document.getElementById('resposta').innerText = "Ocorreu um erro ao tentar realizar o pedido.";
+            });
+        }
+
+        function checarStatus() {
+            const orderId = document.getElementById('orderId').value.trim();
+
+            if (!orderId) {
+                document.getElementById('resposta').innerText = 'Por favor, forneça o ID do pedido.';
+                return;
+            }
+
+            fetch(apiUrl, {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify({
+                    key: apiKey,
+                    action: "status",
+                    order: orderId
+                })
+            })
+            .then(response => response.json())
+            .then(dados => {
+                if (dados.status) {
+                    document.getElementById('resposta').innerHTML = `
+                        <p><strong>Status do Pedido</strong></p>
+                        <p>Status: ${dados.status}</p>
+                        <p>Restante: ${dados.remains || '0'}</p>
+                        <p>Início: ${dados.start_count || '0'}</p>
+                        <p>Link: ${dados.link || 'Indisponível'}</p>
+                        <p>Quantidade: ${dados.quantity || '0'}</p>
+                    `;
+                } else {
+                    document.getElementById('resposta').innerText = `Não foi possível obter o status: ${dados.error || 'Erro desconhecido.'}`;
+                }
+            })
+            .catch(error => {
+                console.error("Erro ao checar status:", error);
+                document.getElementById('resposta').innerText = "Ocorreu um erro ao verificar o status do pedido.";
+            });
+        }
+    </script>
+</body>
+</html>

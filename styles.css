@@ -1,0 +1,165 @@
+body {
+    font-family: 'Roboto', sans-serif;
+    background: linear-gradient(135deg, #000000, #1f1f1f);
+    color: #eee;
+    margin: 0;
+    padding: 0;
+    text-align: center;
+}
+
+header {
+    background-color: #333;
+    padding: 10px 20px;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    position: fixed;
+    top: 0;
+    width: 100%;
+    z-index: 1000;
+}
+
+.logo {
+    margin-right: 20px; /* Espaço entre a logo e os ícones de contato */
+}
+
+.logo img {
+    height: 60px;
+}
+
+.contact-info {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.contact-link {
+    display: flex;
+    align-items: center;
+    color: #ffffff;
+    text-decoration: none;
+    font-size: 1em;
+}
+
+.contact-link img {
+    height: 24px;
+    width: 24px;
+    margin-right: 10px;
+    max-width: 100%;
+    object-fit: contain;
+}
+
+.contact-link span {
+    display: inline; /* Exibe o texto ao lado dos ícones */
+    font-size: 1em;
+}
+
+.contact-link:hover {
+    text-decoration: underline;
+}
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 50px 20px;
+    margin-top: 80px; /* Ajuste para garantir que o conteúdo não fique escondido atrás do cabeçalho */
+}
+
+h1 {
+    color: #8a2be2;
+    margin-bottom: 50px;
+    font-size: 2.5em;
+    font-weight: 700;
+}
+
+.service {
+    background-color: #333;
+    border-radius: 15px;
+    padding: 30px;
+    margin: 20px;
+    display: inline-block;
+    width: calc(33% - 40px);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.4);
+    transition: transform 0.3s, box-shadow 0.3s;
+    position: relative;
+}
+
+.service::before {
+    content: '';
+    position: absolute;
+    top: -10px;
+    left: -10px;
+    right: -10px;
+    bottom: -10px;
+    background: linear-gradient(135deg, #6a0d91, #9b1d9d);
+    border-radius: 20px;
+    z-index: -1;
+    filter: blur(15px);
+}
+
+.service:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 20px 30px rgba(0, 0, 0, 0.5);
+}
+
+.service h2 {
+    color: #8a2be2;
+    margin-bottom: 10px;
+    font-size: 1.8em;
+}
+
+.service p {
+    color: #ddd;
+    font-size: 1.2em;
+    margin-bottom: 20px;
+}
+
+.btn {
+    display: inline-block;
+    background-color: #8a2be2;
+    color: #fff;
+    padding: 15px 25px;
+    border-radius: 8px;
+    text-decoration: none;
+    font-weight: 700;
+    transition: background-color 0.3s, transform 0.3s;
+    font-size: 1.1em;
+}
+
+.btn:hover {
+    background-color: #6a0d91;
+    transform: scale(1.05);
+}
+
+/* Media queries for responsiveness */
+@media (min-width: 1200px) {
+    .service {
+        width: calc(33% - 40px);
+    }
+}
+
+@media (max-width: 1199px) {
+    .service {
+        width: calc(50% - 40px);
+    }
+}
+
+@media (max-width: 768px) {
+    .service {
+        width: calc(100% - 40px);
+    }
+    .contact-info {
+        flex-direction: column;
+        gap: 10px;
+    }
+    .contact-link {
+        font-size: 0.9em;
+    }
+    .contact-link img {
+        height: 20px;
+        width: 20px;
+    }
+    .contact-link span {
+        font-size: 0.9em; /* Ajusta o tamanho do texto em dispositivos móveis */
+    }
+}
