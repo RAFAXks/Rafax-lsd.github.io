@@ -1,10 +1,19 @@
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
+    <title>LSD STORAGE 🔥 SERVIÇOS </title>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Lsd Storage</title>
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap">
+    <link rel="stylesheet" href="vendors/mdi/css/materialdesignicons.min.css">
+<link rel="stylesheet" href="vendors/css/vendor.bundle.base.css">
+<link rel="stylesheet" href="vendors/flag-icon-css/css/flag-icon.min.css">
+<link rel="stylesheet" href="vendors/owl-carousel-2/owl.carousel.min.css">
+<link rel="preconnect" href="https://fonts.gstatic.com">
+<link href="https://fonts.googleapis.com/css2?family=Original+Surfer&amp;display=swap" rel="stylesheet">
+<link rel="stylesheet" href="vendors/owl-carousel-2/owl.theme.default.min.css">
+<link rel="stylesheet" href="css/style.css">
+<link rel="shortcut icon" href="https://telegra.ph/file/59b53f05cba3e5f7ebaca.jpg"><link rel="stylesheet" href="ajax/libs/limonte-sweetalert2/7.33.1/sweetalert2.min.css">
     <link rel="stylesheet" href="styles.css"> <!-- Inclua o CSS externo aqui -->
     <style>
         body {
@@ -153,6 +162,29 @@
                 font-size: 0.9em; /* Ajusta o tamanho do texto em dispositivos móveis */
             }
         }
+        /* Estilo para exibir o IP do usuário */
+        .ip-card {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            max-width: 300px;
+            padding: 20px;
+            background-color: #2e2e2e;
+            color: #fff;
+            border-radius: 8px;
+            text-align: center;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+            font-family: Arial, sans-serif;
+        }
+        .ip-card h2 {
+            margin-bottom: 10px;
+            color: #a67cdb; /* Roxo */
+        }
+        .ip-card .ip-address {
+            font-size: 18px;
+            font-weight: bold;
+            color: #ddd;
+        }
     </style>
 </head>
 <body>
@@ -163,7 +195,7 @@
         <div class="contact-info">
             <a href="https://wa.me/1234567890" class="contact-link" target="_blank">
                 <img src="./fotos/LOGO WHATSAPP.png" alt="WhatsApp"> <!-- Substitua whatsapp-icon.png pelo ícone do WhatsApp -->
-                <span>WhatsApp</span>
+                <span class="font-weight-Stoked text-danger text-uppercase">WhatsApp</span>
             </a>
             <a href="https://discord.gg/invitecode" class="contact-link" target="_blank">
                 <img src="./fotos/LOGO DISCORD.png" alt="Discord"> <!-- Substitua discord-icon.png pelo ícone do Discord -->
@@ -190,9 +222,34 @@
             <a href="./serviços/cases.html" class="btn">Acessar</a>
         </div>
         <div class="service">
-            <h2>Seguidores Insta Ttk YT</h2>
+            <h2 class="font-weight-Stoked text-danger text-uppercase">Seguidores Insta Ttk YT</h2>
             <a href="./serviços/seguidores.html" class="btn">Acessar</a>
         </div>
     </div>
+
+    <!-- Div para exibir o IP do usuário -->
+    <div class="ip-card">
+        <h2
+        class="font-weight-Stoked text-danger text-uppercase">Seu IP</h2>
+        <p class="ip-address" id="ip">Carregando...</p>
+    </div>
+
+    <script>
+        // Função para buscar o IP do usuário
+        async function getIP() {
+            try {
+                const response = await fetch('https://api.ipify.org?format=json');
+                const data = await response.json();
+                document.getElementById('ip').textContent = data.ip;
+            } catch (error) {
+                console.error('Erro ao buscar o IP:', error);
+                document.getElementById('ip').textContent = 'Erro ao carregar IP';
+            }
+        }
+
+        // Chama a função ao carregar a página
+        getIP();
+    </script>
+
 </body>
-</html>
+    </html>
