@@ -3,131 +3,137 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Vendas de Seguidores</title>
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap">
+    <title>Pedidos de Serviços</title>
     <style>
-        body {
-            font-family: 'Roboto', sans-serif;
-            background: url('foto.jpg') no-repeat center center fixed;
-            background-size: cover;
-            color: #eee;
+        /* Reset básico */
+        * {
             margin: 0;
             padding: 0;
-            text-align: center;
+            box-sizing: border-box;
+            font-family: Arial, sans-serif;
         }
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 50px 20px;
+
+        /* Estilo do corpo */
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            background: #1a1a1a; /* Fundo preto */
+            color: #ddd; /* Texto claro */
+            padding: 20px;
         }
-        h1 {
-            color: #8a2be2;
-            margin-bottom: 50px;
-            font-size: 2.5em;
-            font-weight: 700;
-        }
-        .package {
-            background-color: rgba(51, 51, 51, 0.9); /* Transparência */
-            border-radius: 15px;
-            padding: 30px;
-            margin: 20px;
-            display: inline-block;
-            width: calc(33% - 40px);
-            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.4);
-            transition: transform 0.3s, box-shadow 0.3s;
-            position: relative;
-        }
-        .package::before {
-            content: '';
-            position: absolute;
-            top: -10px;
-            left: -10px;
-            right: -10px;
-            bottom: -10px;
-            background: linear-gradient(135deg, #6a0d91, #9b1d9d);
-            border-radius: 20px;
-            z-index: -1;
-            filter: blur(15px);
-        }
-        .package:hover {
-            transform: translateY(-10px);
-            box-shadow: 0 20px 30px rgba(0, 0, 0, 0.5);
-        }
-        .package h2 {
-            color: #8a2be2;
-            margin-bottom: 10px;
-            font-size: 1.8em;
-        }
-        .package p {
-            color: #ddd;
-            font-size: 1.2em;
+
+        /* Estilo do formulário principal */
+        form {
+            background: #2e2e2e; /* Fundo cinza escuro */
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            max-width: 400px;
+            width: 100%;
             margin-bottom: 20px;
         }
-        .btn {
-            display: inline-block;
-            background-color: #8a2be2;
+
+        h1, h2 {
+            color: #d1b3ff; /* Roxo claro */
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: bold;
+            color: #d1b3ff; /* Roxo claro */
+        }
+
+        /* Estilo dos campos de entrada */
+        input[type="text"], input[type="number"], select {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 15px;
+            border: 1px solid #444;
+            border-radius: 5px;
+            font-size: 16px;
+            background-color: #3e3e3e; /* Fundo cinza escuro */
+            color: #ddd;
+            transition: border-color 0.3s ease;
+        }
+
+        input[type="text"]:focus, input[type="number"]:focus, select:focus {
+            border-color: #a67cdb; /* Roxo */
+            outline: none;
+            background-color: #4e4e4e; /* Fundo mais claro ao focar */
+        }
+
+        /* Estilo do botão */
+        button {
+            width: 100%;
+            padding: 12px;
+            border: none;
+            border-radius: 5px;
+            background: #a67cdb; /* Roxo */
             color: #fff;
-            padding: 15px 25px;
-            border-radius: 8px;
-            text-decoration: none;
-            font-weight: 700;
-            transition: background-color 0.3s, transform 0.3s;
-            font-size: 1.1em;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: background 0.3s ease;
         }
-        .btn:hover {
-            background-color: #6a0d91;
-            transform: scale(1.05);
+
+        button:hover {
+            background: #864dbb; /* Roxo mais escuro */
         }
-        @media (max-width: 768px) {
-            .package {
-                width: calc(50% - 40px);
-            }
-        }
-        @media (max-width: 480px) {
-            .package {
-                width: calc(100% - 40px);
-            }
+
+        /* Resposta do servidor */
+        #resposta {
+            text-align: center;
+            color: #d1b3ff; /* Roxo claro */
+            margin-top: 20px;
         }
     </style>
 </head>
 <body>
-    <div class="container">
-        <h1>Pacotes de Seguidores</h1>
-        <div class="package">
-            <h2>Pacote Básico</h2>
-            <p>100 Seguidores</p>
-            <a href="https://wa.me/554199504724?text=Gostaria%20de%20comprar%20o%20Pacote%20Básico%20de%20100%20Seguidores" class="btn">Comprar - R$ 2,99</a>
-        </div>
-        <div class="package">
-            <h2>Pacote Intermediário</h2>
-            <p>300 Seguidores</p>
-            <a href="https://wa.me/554199504724?text=Gostaria%20de%20comprar%20o%20Pacote%20Intermediário%20de%20300%20Seguidores" class="btn">Comprar - 4,75R$ </a>
-        </div>
-        <div class="package">
-            <h2>Pacote Avançado</h2>
-            <p>500 Seguidores</p>
-            <a href="https://wa.me/554199504724?text=Gostaria%20de%20comprar%20o%20Pacote%20Avançado%20de%20500%20Seguidores" class="btn">Comprar - R$ 6,99</a>
-        </div>
-        <div class="package">
-            <h2>Pacote Plus</h2>
-            <p>1000 Seguidores</p>
-            <a href="https://wa.me/554199504724?text=Gostaria%20de%20comprar%20o%20Pacote%20Plus%20de%201000%20Seguidores" class="btn">Comprar - R$ 13,50</a>
-        </div>
-        <div class="package">
-            <h2>Pacote Premium</h2>
-            <p>3000 Seguidores</p>
-            <a href="https://wa.me/554199504724?text=Gostaria%20de%20comprar%20o%20Pacote%20Premium%20de%203000%20Seguidores" class="btn">Comprar - R$ 26,00</a>
-        </div>
-        <div class="package">
-            <h2>Pacote Super</h2>
-            <p>5000 Seguidores</p>
-            <a href="https://wa.me/554199504724?text=Gostaria%20de%20comprar%20o%20Pacote%20Super%20de%205000%20Seguidores" class="btn">A COMBINAR</a>
-        </div>
-                <div class="package">
-            <h2>Pacote QUEBRADO</h2>
-            <p>Pacotes de Seguidores quebrados</p>
-            <a href="https://wa.me/554199504724?text=Gostaria%20de%20comprar%20o%20Pacote%20Premium%20de%20SEGUIDORES%20QUEBRADOS" class="btn">A COMBINAR</a>
-        </div>
-    </div>
+
+    <h1>Enviar Pedido de Serviço</h1>
+    <form id="pedidoForm">
+        <label for="servico">Serviço:</label>
+        <select id="servico">
+            <option value="Seguidores do Instagram">Seguidores do Instagram</option>
+            <option value="Curtidas no Instagram">Curtidas no Instagram</option>
+            <option value="Visualizações no Instagram">Visualizações no Instagram</option>
+        </select>
+
+        <label for="link">Link:</label>
+        <input type="text" id="link" placeholder="Insira o link do perfil ou postagem" required>
+
+        <label for="quantidade">Quantidade:</label>
+        <input type="number" id="quantidade" placeholder="Quantidade mínima: 10" required>
+
+        <button type="button" onclick="enviarPedido()">Enviar Pedido</button>
+    </form>
+
+    <div id="resposta"></div>
+
+    <script>
+        function enviarPedido() {
+            const servico = document.getElementById('servico').value;
+            const link = document.getElementById('link').value;
+            const quantidade = document.getElementById('quantidade').value;
+
+            if (!quantidade || quantidade < 10) {
+                document.getElementById('resposta').innerText = 'Quantidade inválida. Tente novamente com um valor acima de 10.';
+                return;
+            }
+
+            // Monta a mensagem para o WhatsApp
+            const mensagem = Pedido de Serviço:%0A- Serviço: ${servico}%0A- Link: ${link}%0A- Quantidade: ${quantidade};
+            const telefone = "554198192450";
+            const url = https://wa.me/${telefone}?text=${mensagem};
+
+            // Redireciona o usuário para o WhatsApp
+            window.open(url, "_blank");
+        }
+    </script>
 </body>
 </html>
