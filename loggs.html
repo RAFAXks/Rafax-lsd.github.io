@@ -45,16 +45,16 @@
     </table>
 
     <script>
-        // Função para buscar e exibir os logs
         async function carregarLogs() {
             try {
                 const response = await fetch('./logs/visitas.json');
-                if (!response.ok) throw new Error('Erro ao carregar o arquivo de logs');
-                const logs = await response.json();
+                if (!response.ok) {
+                    throw new Error(Erro ${response.status}: ${response.statusText});
+                }
 
+                const logs = await response.json();
                 const table = document.getElementById('logsTable');
 
-                // Preenche a tabela com os logs
                 logs.forEach(log => {
                     const row = document.createElement('tr');
                     row.innerHTML = `
@@ -65,8 +65,8 @@
                     table.appendChild(row);
                 });
             } catch (error) {
-                console.error(error);
-                alert('Erro ao carregar os logs');
+                console.error('Detalhes do erro:', error);
+                alert('Erro ao carregar os logs: ' + error.message);
             }
         }
 
@@ -74,4 +74,4 @@
         carregarLogs();
     </script>
 </body>
-  </html>
+</html>
