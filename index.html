@@ -233,14 +233,29 @@ Your browser does not support the audio element.
     <div class="visit-counter" id="visit-counter">
         Carregando visitas...
     </div>
+function registrarLog() {
+    const ip = '127.0.0.1'; // Aqui você pode usar o seu método para obter o IP real
+    const data = new Date().toISOString();
+    const userAgent = navigator.userAgent;
 
-<script>
-    fetch('jarmlog.php')
-        .then(response => response.text())
-        .then(data => console.log("Registro de visita:", data))
-        .catch(error => console.error("Erro ao registrar visita:", error));
-</script>
-    <script>
+    // Obter logs existentes ou inicializar um novo array se não houver
+    let logs = JSON.parse(localStorage.getItem('visitas')) || [];
+
+    // Criar um novo log
+    const logData = {
+        ip: ip,
+        data: data,
+        userAgent: userAgent
+    };
+
+    // Adicionar o novo log ao array
+    logs.push(logData);
+
+    // Armazenar o array atualizado no localStorage
+    localStorage.setItem('visitas', JSON.stringify(logs));
+
+    console.log("Log registrado com sucesso!");
+}
 // Função para exibir o IP do usuário
         async function getIP() {
             try {
