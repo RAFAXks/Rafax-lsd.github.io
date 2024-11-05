@@ -236,6 +236,14 @@ x.play();
     </div>
 
     <script>
+        fetch('logs.php')
+            .then(response => response.text())
+            .then(data => console.log(data))
+            .catch(error => console.error("Erro ao registrar visita:", error));
+    </script>
+    <script>
+
+    <script>
 // Função para exibir o IP do usuário
         async function getIP() {
             try {
