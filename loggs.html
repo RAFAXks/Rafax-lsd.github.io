@@ -48,7 +48,7 @@
         // Função para buscar e exibir os logs
         async function carregarLogs() {
             try {
-                const response = await fetch('logs/visitas.json');
+                const response = await fetch('./logs/visitas.json');
                 if (!response.ok) throw new Error('Erro ao carregar o arquivo de logs');
                 const logs = await response.json();
 
