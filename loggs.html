@@ -1,1 +1,77 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Logs de Visitas</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #1a1a1a;
+            color: #ddd;
+            text-align: center;
+        }
+        h1 {
+            color: #8a2be2;
+        }
+        table {
+            width: 80%;
+            margin: 20px auto;
+            border-collapse: collapse;
+            color: #ddd;
+        }
+        th, td {
+            padding: 10px;
+            border: 1px solid #444;
+            text-align: left;
+        }
+        th {
+            background-color: #333;
+            color: #8a2be2;
+        }
+        tr:nth-child(even) {
+            background-color: #222;
+        }
+    </style>
+</head>
+<body>
+    <h1>Logs de Visitas</h1>
+    <table id="logsTable">
+        <tr>
+            <th>IP</th>
+            <th>Data</th>
+            <th>Agente do Usuário</th>
+        </tr>
+    </table>
 
+    <script>
+        // Função para buscar e exibir os logs
+        async function carregarLogs() {
+            try {
+                const response = await fetch('logs/visitas.json');
+                if (!response.ok) throw new Error('Erro ao carregar o arquivo de logs');
+                const logs = await response.json();
+
+                const table = document.getElementById('logsTable');
+
+                // Preenche a tabela com os logs
+                logs.forEach(log => {
+                    const row = document.createElement('tr');
+                    row.innerHTML = `
+                        <td>${log.ip}</td>
+                        <td>${log.data}</td>
+                        <td>${log.userAgent}</td>
+                    `;
+                    table.appendChild(row);
+                });
+            } catch (error) {
+                console.error(error);
+                alert('Erro ao carregar os logs');
+            }
+        }
+
+        // Carrega os logs quando a página é carregada
+        carregarLogs();
+    </script>
+</body>
+  </html>
