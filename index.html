@@ -235,12 +235,12 @@ x.play();
         Carregando visitas...
     </div>
 
- <script>
-        fetch('loggs.php')
-            .then(response => response.text())
-            .then(data => console.log(data))
-            .catch(error => console.error("Erro ao registrar visita:", error));
-    </script>
+<script>
+    fetch('armlog.php')
+        .then(response => response.text())
+        .then(data => console.log("Registro de visita:", data))
+        .catch(error => console.error("Erro ao registrar visita:", error));
+</script>
     <script>
 // Função para exibir o IP do usuário
         async function getIP() {
