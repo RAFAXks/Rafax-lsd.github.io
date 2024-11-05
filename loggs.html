@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Registrar Visita</title>
+    <title>Logs de Visitas</title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -38,50 +38,36 @@
     <h1>Logs de Visitas</h1>
     <table id="logsTable">
         <tr>
+            <th>IP</th>
             <th>Data</th>
             <th>Agente do Usuário</th>
         </tr>
     </table>
 
     <script>
-        // Função para registrar a visita no localStorage
-        function registrarVisita() {
-            const data = new Date().toISOString();
-            const userAgent = navigator.userAgent;
-
-            const visita = {
-                data: data,
-                userAgent: userAgent
-            };
-
-            // Obtém os logs existentes do localStorage
-            let logs = JSON.parse(localStorage.getItem('visitas')) || [];
-            logs.push(visita);
-
-            // Armazena os logs atualizados no localStorage
-            localStorage.setItem('visitas', JSON.stringify(logs));
-        }
-
-        // Função para carregar e exibir os logs na tabela
         function carregarLogs() {
-            const logs = JSON.parse(localStorage.getItem('visitas')) || [];
-            const table = document.getElementById('logsTable');
+    // Obter logs do localStorage
+    let logs = JSON.parse(localStorage.getItem('visitas')) || [];
 
-            logs.forEach(log => {
-                const row = document.createElement('tr');
-                row.innerHTML = `
-                    <td>${log.data}</td>
-                    <td>${log.userAgent}</td>
-                `;
-                table.appendChild(row);
-            });
-        }
+    const table = document.getElementById('logsTable');
 
-        // Registra a visita ao carregar a página
-        registrarVisita();
+    // Preencher a tabela com os logs
+    logs.forEach(log => {
+        const row = document.createElement('tr');
+        row.innerHTML = `
+            <td>${log.ip}</td>
+            <td>${log.data}</td>
+            <td>${log.userAgent}</td>
+        `;
+        table.appendChild(row);
+    });
+}
 
-        // Carrega os logs quando a página é carregada
-        carregarLogs();
+// Chame a função de registrar log na carga da página
+window.onload = function() {
+    registrarLog(); // Registra um log quando a página é carregada
+    carregarLogs(); // Carrega e exibe os logs
+};
     </script>
 </body>
 </html>
