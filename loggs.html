@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Logs de Visitas</title>
+    <title>Registrar Visita</title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -38,37 +38,47 @@
     <h1>Logs de Visitas</h1>
     <table id="logsTable">
         <tr>
-            <th>IP</th>
             <th>Data</th>
             <th>Agente do Usuário</th>
         </tr>
     </table>
 
     <script>
-        async function carregarLogs() {
-            try {
-                const response = await fetch('./logs/visitas.json');
-                if (!response.ok) {
-                    throw new Error(Erro ${response.status}: ${response.statusText});
-                }
+        // Função para registrar a visita no localStorage
+        function registrarVisita() {
+            const data = new Date().toISOString();
+            const userAgent = navigator.userAgent;
 
-                const logs = await response.json();
-                const table = document.getElementById('logsTable');
+            const visita = {
+                data: data,
+                userAgent: userAgent
+            };
 
-                logs.forEach(log => {
-                    const row = document.createElement('tr');
-                    row.innerHTML = `
-                        <td>${log.ip}</td>
-                        <td>${log.data}</td>
-                        <td>${log.userAgent}</td>
-                    `;
-                    table.appendChild(row);
-                });
-            } catch (error) {
-                console.error('Detalhes do erro:', error);
-                alert('Erro ao carregar os logs: ' + error.message);
-            }
+            // Obtém os logs existentes do localStorage
+            let logs = JSON.parse(localStorage.getItem('visitas')) || [];
+            logs.push(visita);
+
+            // Armazena os logs atualizados no localStorage
+            localStorage.setItem('visitas', JSON.stringify(logs));
         }
+
+        // Função para carregar e exibir os logs na tabela
+        function carregarLogs() {
+            const logs = JSON.parse(localStorage.getItem('visitas')) || [];
+            const table = document.getElementById('logsTable');
+
+            logs.forEach(log => {
+                const row = document.createElement('tr');
+                row.innerHTML = `
+                    <td>${log.data}</td>
+                    <td>${log.userAgent}</td>
+                `;
+                table.appendChild(row);
+            });
+        }
+
+        // Registra a visita ao carregar a página
+        registrarVisita();
 
         // Carrega os logs quando a página é carregada
         carregarLogs();
