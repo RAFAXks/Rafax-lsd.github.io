@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Downloader de Site</title>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap">
+     <style>
+        body {
+            font-family: 'Roboto', sans-serif;
+            background-color: #1a1a1a;
+            color: #ffffff;
+            margin: 0;
+            padding: 0;
+            text-align: center;
+        }
+        .container {
+            max-width: 800px;
+            margin: 50px auto;
+            padding: 20px;
+            background-color: rgba(51, 51, 51, 0.9);
+            border-radius: 15px;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.4);
+        }
+        h1 {
+            color: #8a2be2;
+            margin-bottom: 20px;
+            font-size: 2.5em;
+            font-weight: 700;
+        }
+        .input-group {
+            margin-bottom: 20px;
+        }
+        input[type="text"] {
+            padding: 10px;
+            width: 80%;
+            font-size: 1em;
+            border: 2px solid #8a2be2;
+            border-radius: 8px;
+            color: #ffffff;
+            background-color: #333333;
+        }
+        button {
+            padding: 10px 20px;
+            font-size: 1em;
+            font-weight: bold;
+            color: #ffffff;
+            background-color: #8a2be2;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        button:hover {
+            background-color: #6a0d91;
+        }
+        .progress-bar {
+            width: 100%;
+            background-color: #333;
+            border-radius: 8px;
+            margin: 20px 0;
+        }
+        .progress {
+            width: 0;
+            height: 20px;
+            background-color: #8a2be2;
+            border-radius: 8px;
+            text-align: center;
+            color: #fff;
+            font-size: 0.9em;
+        }
+        #download-link {
+            display: none;
+            color: #8a2be2;
+            font-weight: bold;
+            text-decoration: none;
+            margin-top: 20px;
+            font-size: 1.2em;
+        }
+    </style>
+</head>
+<body>
+    <h1>Downloader de HTML de Site</h1>
+    <input type="text" id="urlInput" placeholder="Digite o link do site" size="40">
+    <button onclick="downloadSite()">Baixar HTML</button>
+
+    <div class="progress-bar">
+        <div class="progress" id="progress"></div>
+    </div>
+    <p id="status"></p>
+
+    <script>
+        async function downloadSite() {
+            const urlInput = document.getElementById('urlInput').value;
+            if (!urlInput.startsWith('http://') && !urlInput.startsWith('https://')) {
+                alert('Por favor, insira uma URL válida.');
+                return;
+            }
+
+            try {
+                document.getElementById('status').innerText = 'Baixando...';
+                document.getElementById('progress').style.width = '50%';
+
+                const response = await fetch(urlInput);
+                const html = await response.text();
+
+                document.getElementById('status').innerText = 'Download concluído!';
+                document.getElementById('progress').style.width = '100%';
+
+                const blob = new Blob([html], { type: 'text/html' });
+                const link = document.createElement('a');
+                link.href = URL.createObjectURL(blob);
+                link.download = 'pagina.html';
+                link.click();
+
+                document.getElementById('progress').style.width = '0%';
+                document.getElementById('status').innerText = '';
+            } catch (error) {
+                document.getElementById('status').innerText = 'Erro ao baixar a página.';
+                console.error('Erro:', error);
+            }
+        }
+    </script>
+</body>
+</html>
