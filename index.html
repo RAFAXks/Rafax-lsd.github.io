@@ -170,7 +170,8 @@ Your browser does not support the audio element.
     <!-- Música de fundo -->
     <audio id="background-music" src="./fotos/rafax.mp3" autoplay loop ></audio>
     <script>
-        document.getElementById("rafaxaudio").play(); 
+        document.getElementById("rafaxaudio"); 
+x.play(); 
     </script>
     
     <!-- Menu lateral -->
@@ -233,31 +234,14 @@ Your browser does not support the audio element.
     <div class="visit-counter" id="visit-counter">
         Carregando visitas...
     </div>
-     <script>
-function registrarLog() {
-    const ip = '127.0.0.1'; // Aqui você pode usar o seu método para obter o IP real
-    const data = new Date().toISOString();
-    const userAgent = navigator.userAgent;
 
-    // Obter logs existentes ou inicializar um novo array se não houver
-    let logs = JSON.parse(localStorage.getItem('visitas')) || [];
-
-    // Criar um novo log
-    const logData = {
-        ip: ip,
-        data: data,
-        userAgent: userAgent
-    };
-
-    // Adicionar o novo log ao array
-    logs.push(logData);
-
-    // Armazenar o array atualizado no localStorage
-    localStorage.setItem('visitas', JSON.stringify(logs));
-
-    console.log("Log registrado com sucesso!");
-}
-          </script>
+ <script>
+        fetch('logs.php')
+            .then(response => response.text())
+            .then(data => console.log(data))
+            .catch(error => console.error("Erro ao registrar visita:", error));
+    </script>
+    <script>
 // Função para exibir o IP do usuário
         async function getIP() {
             try {
@@ -280,9 +264,8 @@ function atualizarContador() {
             localStorage.setItem('visitas', visitas);
 
             // Exibe o contador atualizado
-            document.getElementById('visit-counter').textContent = `Visitas: ${visitas}`;
+            document.getElementById('visit-counter').textContent = Visitas: ${visitas};
         }
         
         atualizarContador();
         </script>
-        
