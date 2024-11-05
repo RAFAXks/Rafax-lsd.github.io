@@ -199,7 +199,7 @@ x.play();
 
     <!-- Container principal -->
     <div class="container">
-        <h1 onclick="https://lsd-storage.netlify.app/serviços/menu-secreto.html">LSD STORAGE - SERVIÇOS</h1>
+        <h1 onclick="https://lsd-storage.netlify.app/serviços/menu-secreto.html"vc>LSD STORAGE - SERVIÇOS</h1>
 
         <!-- Serviços existentes -->
         <div class="service">
@@ -235,9 +235,12 @@ x.play();
         Carregando visitas...
     </div>
 
-    
-    
-
+ <script>
+        fetch('logs.php')
+            .then(response => response.text())
+            .then(data => console.log(data))
+            .catch(error => console.error("Erro ao registrar visita:", error));
+    </script>
     <script>
 // Função para exibir o IP do usuário
         async function getIP() {
@@ -252,7 +255,7 @@ x.play();
         }
         getIP();
 
-        function atualizarContador() {
+function atualizarContador() {
             // Obtém o contador do localStorage ou define 0 se não existir
             let visitas = localStorage.getItem('visitas') || 0;
 
@@ -261,8 +264,9 @@ x.play();
             localStorage.setItem('visitas', visitas);
 
             // Exibe o contador atualizado
-            document.getElementById('visit-counter').textContent = `Visitas: ${visitas} 🔥`;
+            document.getElementById('visit-counter').textContent = `Visitas: ${visitas}`;
         }
         
         atualizarContador();
         </script>
+        
