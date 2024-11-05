@@ -11,7 +11,12 @@ $logData = [
 
 $arquivoLog = './logs/visitas.json';
 
-// Lê o conteúdo atual do arquivo e decodifica para adicionar um novo log
+// Cria um arquivo JSON vazio se não existir
+if (!file_exists($arquivoLog)) {
+    file_put_contents($arquivoLog, json_encode([]));
+}
+
+// Lê o conteúdo atual do arquivo JSON
 $logs = json_decode(file_get_contents($arquivoLog), true);
 $logs[] = $logData;
 
